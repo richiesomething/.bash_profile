@@ -1,0 +1,330 @@
+export PS1="$  "
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
+
+
+alias ls='ls -GFh'
+alias gp='git push'
+alias ga='git add .'
+alias gc='git commit -m "'
+alias ocl='open -a clion'
+alias opc='open -a pycharm'
+alias ows='open -a webstorm'
+alias ops='open -a phpstorm'
+alias ~='cd ~'
+alias c='clear && clear'
+alias .='cd ..'
+alias m='Makefile'
+alias src='source ~/.bash_profile && echo "updated .bash_profile"'
+alias bp='subl ~/.bash_profile'
+alias mc='make clean'
+alias h='cd ~ && clear'
+alias make='clear && make'
+alias chrome="open -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+alias word="open -a /Applications/Microsoft\ Word.app/"
+
+
+function mm {
+	MM=Makefile
+	GCC="g++"
+    FLAGS="-g -Wall -std=c++11"
+	MAIN="main: main.cpp"
+	NEW=$1
+	TARGET=$2
+
+
+	if [ ! -f "$MM" ]; then
+		touch $MM
+		printf "all: main\n\n" >> $MM
+		printf "$MAIN\n" >> $MM
+		printf "	$GCC $FLAGS main.cpp -o main\n\n" >> $MM
+		echo "$MM made"
+	fi
+	if [ ! -z $NEW ]; then 
+		if [ $NEW = "new" ]; then
+			printf "$TARGET.o: $TARGET.h $TARGET.cpp\n" >> $MM
+			printf "	$GCC $FLAGS -c $TARGET.cpp -o $TARGET.o\n\n" >> $MM
+			sed -i '' "/^main:/ s/$/ "$TARGET".o/" $MM
+			sed -i '' "s/-o main/ "$TARGET".o -o main/" $MM
+		fi
+	fi
+
+
+}
+
+
+function test {
+    CODE=$1
+    FILE="./a.out"
+    clear
+        printf "\e[93m            ########################################################################################################################\n"
+        printf "\e[93m          ############################################################################################################################\n"
+        printf "\e[93m        #####          ####              ######  ###########          ###              ###        ###    #######  #######         ######\n"
+        printf "\e[93m      ######  ########  #########  ###########    ##########  ######  #########  ############  ######  #  ######  #####   #######  #######\n"
+        printf "\e[93m    ########  ########  #########  ##########  ##  #########  #######  ########  ############  ######  ##  #####  ####  ##########  ########\n"
+        printf "\e[93m  ##########  ###################  #########  ####  ########  #######  ########  ############  ######  ###  ####  ###  #######################\n"
+        printf "\e[93m############          ###########  ########  ######  #######  #####  ##########  ############  ######  ####  ###  ###  #####        ############\n"
+        printf "\e[93m  ####################  #########  #######            ######        ###########  ############  ######  #####  ##  ###  #####  ####  ##########\n"
+        printf "\e[93m    ########  ########  #########  ######  ##########  #####  #####  ##########  ############  ######  ######  #  ####  ##########  ########\n"
+        printf "\e[93m      ######  ########  #########  #####  ############  ####  ######  #########  ############  ######  #######    #####   #####   ########\n"
+        printf "\e[93m        #####          ##########  ####  ##############  ###  #######  ########  #########        ###  ########   ######        ########\n"
+        printf "\e[93m          ############################################################################################################################\n"
+        printf "\e[93m            ########################################################################################################################\n$(printf '\033[0m')"
+    echo "" && echo ""
+
+    echo "" && echo ""
+    g++ -std=c++11 $CODE.cpp
+    if [ -f "$FILE" ]; then 
+        ./a.out
+        rm a.out
+        echo "" && echo ""
+        printf  "\e[93m_______________________________________________________________________________________________________________________________________________\n"
+         printf  "\e[93m_______________________________________________________________________________________________________________________________________________\n"
+        printf  "\e[93m_______________________________________________________________________________________________________________________________________________\n"
+        printf  "\e[93m_______________________________________________________________________________________________________________________________________________\n"
+        printf  "\e[93m_______________________________________________________________________________________________________________________________________________\n"
+        printf  "_______________________________________________________________________________________________________________________________________________\n$(printf '\033[0m')"
+        echo "" && echo ""
+    fi
+
+}
+
+function p {
+    clear
+    pwd && ls 
+}
+
+
+function subl {
+    sublime $1
+    clear
+    echo "opened sublime"
+}
+
+
+function run {
+    FILE="./a.out"
+
+    clear
+    if [ -f "$FILE" ]; then 
+        rm a.out
+    fi
+        printf "\e[93m            ########################################################################################################################\n"
+        printf "\e[93m          ############################################################################################################################\n"
+        printf "\e[93m        #####          ####              ######  ###########          ###              ###        ###    #######  #######         ######\n"
+        printf "\e[93m      ######  ########  #########  ###########    ##########  ######  #########  ############  ######  #  ######  #####   #######  #######\n"
+        printf "\e[93m    ########  ########  #########  ##########  ##  #########  #######  ########  ############  ######  ##  #####  ####  ##########  ########\n"
+        printf "\e[93m  ##########  ###################  #########  ####  ########  #######  ########  ############  ######  ###  ####  ###  #######################\n"
+        printf "\e[93m############          ###########  ########  ######  #######  #####  ##########  ############  ######  ####  ###  ###  #####        ############\n"
+        printf "\e[93m  ####################  #########  #######            ######        ###########  ############  ######  #####  ##  ###  #####  ####  ##########\n"
+        printf "\e[93m    ########  ########  #########  ######  ##########  #####  #####  ##########  ############  ######  ######  #  ####  ##########  ########\n"
+        printf "\e[93m      ######  ########  #########  #####  ############  ####  ######  #########  ############  ######  #######    #####   #####   ########\n"
+        printf "\e[93m        #####          ##########  ####  ##############  ###  #######  ########  #########        ###  ########   ######        ########\n"
+        printf "\e[93m          ############################################################################################################################\n"
+        printf "\e[93m            ########################################################################################################################\n$(printf '\033[0m')"
+    g++ -std=c++11 $1 && clear
+
+    if [ ! -f "$FILE" ]; then
+        echo "" && echo ""
+        echo "" && echo ""        
+        printf "\e[93m  ######################################################################################################################\n"
+        printf "\e[93m###############################            DID NOT COMPILE            ####################################################\n"
+        printf "\e[93m  ######################################################################################################################\n$(printf '\033[0m')"
+        echo "" && echo ""
+        echo "" && echo ""  
+    else
+        echo "" && echo ""
+        echo "" && echo ""
+        echo "" && echo ""
+        echo "" && echo ""
+        echo "" && echo ""
+
+        ./a.out $2 $3 $4
+        echo ""
+        echo "" 
+        echo ""
+        printf "\e[93m  ######################################################################################################################\n"
+        printf "\e[93m###############################                FINISHED               ####################################################\n"
+        printf "\e[93m  ######################################################################################################################\n$(printf '\033[0m')"
+        rm ./a.out
+        echo "" && echo ""
+        echo "" && echo ""
+    fi
+}
+
+function mcd {
+    mkdir $1
+    cd $1
+    clear 
+    echo "Now in new directory" $1
+}
+
+function d {
+    cd ~/Desktop/$1/$2/$3/$4
+    clear
+}
+
+function opw {
+    open ~/Desktop/$1 -a $2
+}
+
+function commit {
+    $1
+    git add .
+    if [ -z "$1" ] 
+      then
+        git commit -m "updated"
+    else 
+        git commit -m "$1"
+    fi 
+    git push
+    clear
+    echo "added, commited, & pushed to git"
+}
+
+function e {
+    printf '%s\n' "$1" >> $2
+}
+
+function to {
+    touch $1
+    open $1
+    clear
+}
+
+
+function class {
+    CPP=$1.cpp
+    H=$1.h
+    touch $CPP && touch $H
+    echo "#include \"$1.h\"" >> $CPP
+
+    echo "" >> $CPP && echo "" >> $CPP
+    echo "// Constructor" >> $CPP
+    echo "${1^}::${1^}() {" >> $CPP
+    echo "" >> $CPP && echo "" >> $CPP
+    echo "}" >> $CPP
+    echo "// Destructor" >> $CPP
+    echo "${1^}::~${1^}() {" >> $CPP
+    echo "" >> $CPP && echo "" >> $CPP
+    echo "}" >> $CPP
+
+
+    echo "#ifndef ${1^^}_HPP" >> $H
+    echo "#define ${1^^}_HPP" >> $H
+    echo "" >> $H && echo "" >> $H
+    echo "class ${1^} { " >> $H
+    echo "public: "  >> $H
+    echo "    ${1^}();" >> $H
+    echo "    ~${1^}();" >> $H
+    echo "" >> $H && echo "" >> $H
+    echo "private: " >> $H
+    echo "" >> $H && echo "" >> $H
+    echo "};" >> $H
+    echo "" >> $H && echo "" >> $H
+    echo "#endif" >> $H
+
+
+
+    clear
+    subl $1.cpp && subl $1.h
+    echo "made class \"$1\""
+
+}
+
+function cf {
+    FILE=$1.h
+    TYPE=$2
+    FUNC_TYPE=$3
+    FUNC_NAME=$4
+
+    if [[ $TYPE == "public" ]] 
+    then
+        CHECK="public"
+        FIND="~${1^}"
+    else 
+        if [[ $TYPE == "private" ]]
+        then
+            CHECK="private"
+            FIND="private:"
+        fi
+    fi
+
+    if [ ! -f "$FILE" ]
+    then
+        echo "Class $FILE does not exist"
+    else
+        echo "Class $FILE exsist, checking for private paramaters."
+        if grep -R "$CHECK" $FILE 
+        then
+            echo "'$CHECK' found creating function."
+            START="$(grep -n "$FIND" $FILE  | grep -Eo '^[^:]+')"
+            echo "$START"
+            LINES="$(grep "" -c $FILE)"
+            END=$(($LINES-$START))
+
+            tmpfile=`mktemp`
+            head -n $START $FILE > $tmpfile
+            echo "    $FUNC_TYPE $FUNC_NAME()" >> $tmpfile
+            tail -n -$END $FILE >> $tmpfile
+            echo "" >> $tmpfile && echo "" >> $tmpfile
+            mv $tmpfile $FILE
+
+            echo "" >> $1.cpp && echo "" >> $1.cpp
+            echo "$FUNC_TYPE ${1^}::${4^}() {" >> $1.cpp
+            echo "" >> $1.cpp && echo "" >> $1.cpp
+            echo "}" >> $1.cpp
+
+        else
+            echo "No $CHECK functions, creating "
+        fi
+
+
+    fi
+
+
+
+}
+
+
+function github() {
+  #call from a local repo to open the repository on github in browser
+  giturl=$(git config --get remote.origin.url)
+  if [ "$giturl" == "" ]
+    then
+     echo "Not a git repository or no remote.origin.url set"
+     exit 1;
+  fi
+  giturl=${giturl/git\@github\.com\:/https://github.com/}
+  giturl=${giturl/\.git//}
+  echo $giturl
+  open $giturl
+}
+
+# Setting PATH for Python 3.7
+# The original version is saved in .bash_profile.pysave
+export PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:${PATH}"
+export PATH=/usr/local/bin:$PATH
+export PATH=~/bin:${PATH}
+export CPLUS_INCLUDE_PATH=/usr/local/include  
+export LIBRARY_PATH=/usr/local/lib
+export PATH="/usr/local/sbin:$PATH"
+
+
+
+# added by Anaconda3 2019.10 installer
+# >>> conda init >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$(CONDA_REPORT_ERRORS=false '/Users/richardhernandez/opt/anaconda3/bin/conda' shell.bash hook 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    \eval "$__conda_setup"
+else
+    if [ -f "/Users/richardhernandez/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/richardhernandez/opt/anaconda3/etc/profile.d/conda.sh"
+        CONDA_CHANGEPS1=false conda activate base
+    else
+        \export PATH="/Users/richardhernandez/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda init <<<
